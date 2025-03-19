@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "517937515610",
+    "project_id": "convo-mate-927c5",
+    "storage_bucket": "convo-mate-927c5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:517937515610:android:d7f5f16d67f882bccb1c63",
+        "android_client_info": {
+          "package_name": "com.xtech.convo_mate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC464Q8yagQ_32CnqccseAEllp1qKG6mBU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
