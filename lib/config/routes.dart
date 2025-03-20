@@ -1,25 +1,18 @@
-import 'package:convo_mate/presentation/screens/splash_screen.dart';
 import 'package:go_router/go_router.dart';
 import '../presentation/screens/login/login_screen.dart';
-
+import '../presentation/screens/sign_up/sign_up_screen.dart';
+import '../presentation/screens/splash/splash_screen.dart';
 
 final GoRouter router = GoRouter(
   routes: [
-
-    GoRoute(
-      path: '/',
-      builder: (context, state) => SplashScreen(),
-    ),
+    GoRoute(path: '/', builder: (context, state) => SplashScreen()),
     // 🟢 شاشة تسجيل الدخول
-    GoRoute(
-      path: '/login',
-      builder: (context, state) => LoginScreen(),
-    ),
+    GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
     // // 🟡 شاشة إنشاء حساب
-    // GoRoute(
-    //   path: '/register',
-    //   builder: (context, state) => RegisterScreen(),
-    // ),
+    GoRoute(
+      path: '/signup',
+      builder: (context, state) => SignUpScreen(),
+    ),
     // // 🔵 الصفحة الرئيسية
     // GoRoute(
     //   path: '/home',
