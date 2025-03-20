@@ -35,10 +35,12 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
+        print("Google Sign-In cancelled by user");
         emit(AuthFailure("لم يكتمل تسجيل الدخول."));
         return;
       }
 
+      print("Google User: ${googleUser.email}");
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -46,8 +48,10 @@ class AuthCubit extends Cubit<AuthState> {
       );
 
       await _auth.signInWithCredential(credential);
+      print("Google Sign-In successful");
       emit(AuthSuccess());
     } catch (e) {
+      print("Google Sign-In error: $e");
       emit(AuthFailure(e.toString()));
     }
   }

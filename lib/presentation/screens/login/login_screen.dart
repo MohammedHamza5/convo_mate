@@ -1,22 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
-import '../../../logic/auth_cubit.dart';
-import '../../../logic/auth_state.dart';
+import 'package:animate_do/animate_do.dart';
+import '../../../logic/cubits/auth_cubit.dart';
+import '../../../logic/cubits/auth_state.dart';
 import '../../widgets/custom_button.dart';
+import '../../widgets/custom_text_form.dart';
 import '../../widgets/google_sign_in_button.dart';
+import 'widgets/do_not_have_account.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _obscurePassword = true;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: BlocProvider(
         create: (context) => AuthCubit(),
         child: BlocConsumer<AuthCubit, AuthState>(
@@ -24,112 +40,119 @@ class LoginScreen extends StatelessWidget {
             if (state is AuthSuccess) {
               context.go('/home');
             } else if (state is AuthFailure) {
-              ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.error)),
+                SnackBar(
+                  content: Text(state.error),
+                  backgroundColor: Colors.red,
+                ),
               );
             }
           },
           builder: (context, state) {
-            return Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.blue.shade800, Colors.blue.shade400],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-              child: Center(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    elevation: 10,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              "Login",
-                              style: GoogleFonts.poppins(
-                                fontSize: 26,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blue.shade800,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            TextFormField(
+            return Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 24, vertical: 40),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    FadeInDown(
+                      duration: const Duration(milliseconds: 800),
+                      child: const Icon(
+                        Icons.lock_outline,
+                        size: 80,
+                        color: Colors.blueAccent,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    FadeInDown(
+                      delay: const Duration(milliseconds: 300),
+                      child: const Text(
+                        "Welcome Back!",
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          SlideInLeft(
+                            delay: const Duration(milliseconds: 500),
+                            child: CustomTextField(
                               controller: emailController,
-                              decoration: InputDecoration(
-                                labelText: "Email",
-                                prefixIcon: Icon(Icons.email, color: Colors.blue.shade800),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                              ),
+                              hintText: "Email Address",
                               keyboardType: TextInputType.emailAddress,
+                              prefixIcon: const Icon(Icons.email_outlined),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return "Please enter your email";
                                 }
-                                if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}").hasMatch(value)) {
-                                  return "Invalid email address";
-                                }
                                 return null;
                               },
                             ),
-                            const SizedBox(height: 15),
-                            TextFormField(
+                          ),
+                          const SizedBox(height: 15),
+                          SlideInRight(
+                            delay: const Duration(milliseconds: 600),
+                            child: CustomTextField(
                               controller: passwordController,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                labelText: "Password",
-                                prefixIcon: Icon(Icons.lock, color: Colors.blue.shade800),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                              ),
+                              hintText: "Password",
+                              obscureText: _obscurePassword,
+                              prefixIcon: const Icon(Icons.lock_outline),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return "Please enter your password";
                                 }
-                                if (value.length < 6) {
-                                  return "Password must be at least 6 characters";
-                                }
                                 return null;
                               },
-                            ),
-                            const SizedBox(height: 20),
-                            state is AuthLoading
-                                ? CircularProgressIndicator()
-                                : CustomButton(
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  context.read<AuthCubit>().loginWithEmail(
-                                    emailController.text.trim(),
-                                    passwordController.text.trim(),
-                                  );
-                                }
-                              },
-                              text: "Login",
-                            ),
-                            const SizedBox(height: 15),
-                            state is AuthLoading ? SizedBox() : GoogleSignInButton(),
-                            const SizedBox(height: 15),
-                            TextButton(
-                              onPressed: () => context.go('/register'),
-                              child: Text(
-                                "Don't have an account? Register now!",
-                                style: TextStyle(color: Colors.blue.shade800),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _obscurePassword
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _obscurePassword = !_obscurePassword;
+                                  });
+                                },
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
+                    const SizedBox(height: 25),
+                    state is AuthLoading
+                        ? const CircularProgressIndicator()
+                        : BounceInUp(
+                      delay: const Duration(milliseconds: 700),
+                      child: CustomButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            context.read<AuthCubit>().loginWithEmail(
+                              emailController.text.trim(),
+                              passwordController.text.trim(),
+                            );
+                          }
+                        },
+                        text: "Login",
+                      ),
+                    ),
+                    const SizedBox(height: 50),
+                    if (state is! AuthLoading) const GoogleSignInButton(),
+                    const SizedBox(height: 50),
+                    FadeInUp(
+                      delay: const Duration(milliseconds: 800),
+                      child: const DoNotHaveAccountText(),
+                    ),
+                  ],
                 ),
               ),
             );
