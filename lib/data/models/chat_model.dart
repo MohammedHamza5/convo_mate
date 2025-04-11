@@ -1,31 +1,54 @@
+// lib/data/models/chat_model.dart
 class ChatModel {
-  String chatId;
-  List<String> users; // [user1Id, user2Id]
-  String lastMessage;
-  DateTime lastMessageTime;
+  final String chatId;
+  final List<String> participants;
+  final String lastMessage;
+  final DateTime lastMessageTime;
+  final bool isLastMessageSeen;
+  final String otherUserName;
+  final String? otherUserImage;
+  final int unreadCount; // عدد الرسائل غير المقروءة
+  final bool isOnline; // حالة الاتصال
+  final List<String>? sharedInterests; // الاهتمامات المشتركة
 
   ChatModel({
     required this.chatId,
-    required this.users,
+    required this.participants,
     required this.lastMessage,
     required this.lastMessageTime,
+    this.isLastMessageSeen = false,
+    required this.otherUserName,
+    this.otherUserImage,
+    this.unreadCount = 0,
+    this.isOnline = false,
+    this.sharedInterests,
   });
 
-  Map<String, dynamic> toJson() {
-    return {
-      'chatId': chatId,
-      'users': users,
-      'lastMessage': lastMessage,
-      'lastMessageTime': lastMessageTime.toIso8601String(),
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    'chatId': chatId,
+    'participants': participants,
+    'lastMessage': lastMessage,
+    'lastMessageTime': lastMessageTime.toIso8601String(),
+    'isLastMessageSeen': isLastMessageSeen,
+    'otherUserName': otherUserName,
+    'otherUserImage': otherUserImage,
+    'unreadCount': unreadCount,
+    'isOnline': isOnline,
+    'sharedInterests': sharedInterests,
+  };
 
-  factory ChatModel.fromJson(Map<String, dynamic> json) {
-    return ChatModel(
-      chatId: json['chatId'],
-      users: List<String>.from(json['users']),
-      lastMessage: json['lastMessage'],
-      lastMessageTime: DateTime.parse(json['lastMessageTime']),
-    );
-  }
+  factory ChatModel.fromJson(Map<String, dynamic> json) => ChatModel(
+    chatId: json['chatId'],
+    participants: List<String>.from(json['participants']),
+    lastMessage: json['lastMessage'],
+    lastMessageTime: DateTime.parse(json['lastMessageTime']),
+    isLastMessageSeen: json['isLastMessageSeen'],
+    otherUserName: json['otherUserName'],
+    otherUserImage: json['otherUserImage'],
+    unreadCount: json['unreadCount'] ?? 0,
+    isOnline: json['isOnline'] ?? false,
+    sharedInterests: json['sharedInterests'] != null
+        ? List<String>.from(json['sharedInterests'])
+        : null,
+  );
 }
