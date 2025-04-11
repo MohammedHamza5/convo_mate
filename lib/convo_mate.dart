@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'config/routes.dart';
+import 'core/theme.dart';
 
 class ConvoMate extends StatelessWidget {
   const ConvoMate({super.key});
@@ -7,9 +8,9 @@ class ConvoMate extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.system,
       routerConfig: router,
     );
   }

@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import '../../data/models/user_model.dart';
 import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -19,12 +21,34 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> registerWithEmail(String email, String password, String username) async {
+  Future<void> registerWithEmail(
+    String email,
+    String password,
+    String username,
+  ) async {
     emit(AuthLoading());
     try {
-      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(email: email, password: password);
       await userCredential.user!.updateDisplayName(username);
       emit(AuthSuccess());
+      // إنشاء كائن UserModel
+      UserModel userModel = UserModel(
+        uid: userCredential.user!.uid,
+        name: username,
+        email: email,
+        // phone: phone,
+        profileImage: '', // صورة افتراضية
+        interests: [], // قائمة فارغة في البداية
+        isOnline: false, // غير متصل افتراضيًا
+        lastSeen: DateTime.now(), // الوقت الحالي
+      );
+
+      // حفظ بيانات المستخدم في Firestore
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .set(userModel.toJson());
     } catch (e) {
       emit(AuthFailure(e.toString()));
     }
@@ -41,7 +65,8 @@ class AuthCubit extends Cubit<AuthState> {
       }
 
       print("Google User: ${googleUser.email}");
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
