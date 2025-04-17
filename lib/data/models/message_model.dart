@@ -8,6 +8,7 @@ class MessageModel extends Equatable {
   final String message;
   final String? imageUrl;
   final String? audioUrl;
+  final int? audioDuration; // مدة الصوت بالثواني
   final bool isSeen; // Deprecated, to be replaced by isRead
   final DateTime timestamp;
   final bool isDelivered;
@@ -22,6 +23,7 @@ class MessageModel extends Equatable {
     required this.message,
     this.imageUrl,
     this.audioUrl,
+    this.audioDuration,
     required this.isSeen,
     required this.timestamp,
     this.isDelivered = false,
@@ -39,6 +41,7 @@ class MessageModel extends Equatable {
       message: data['message'] ?? '',
       imageUrl: data['imageUrl'],
       audioUrl: data['audioUrl'],
+      audioDuration: data['audioDuration'],
       isSeen: data['isSeen'] ?? false,
       timestamp: (data['timestamp'] is Timestamp)
           ? (data['timestamp'] as Timestamp).toDate()
@@ -60,6 +63,7 @@ class MessageModel extends Equatable {
       'message': message,
       'imageUrl': imageUrl,
       'audioUrl': audioUrl,
+      'audioDuration': audioDuration,
       'isSeen': isSeen,
       'timestamp': Timestamp.fromDate(timestamp),
       'isDelivered': isDelivered,
@@ -76,6 +80,7 @@ class MessageModel extends Equatable {
     String? message,
     String? imageUrl,
     String? audioUrl,
+    int? audioDuration,
     bool? isSeen,
     DateTime? timestamp,
     bool? isDelivered,
@@ -90,6 +95,7 @@ class MessageModel extends Equatable {
       message: message ?? this.message,
       imageUrl: imageUrl ?? this.imageUrl,
       audioUrl: audioUrl ?? this.audioUrl,
+      audioDuration: audioDuration ?? this.audioDuration,
       isSeen: isSeen ?? this.isSeen,
       timestamp: timestamp ?? this.timestamp,
       isDelivered: isDelivered ?? this.isDelivered,
@@ -107,6 +113,7 @@ class MessageModel extends Equatable {
     message,
     imageUrl,
     audioUrl,
+    audioDuration,
     isSeen,
     timestamp,
     isDelivered,

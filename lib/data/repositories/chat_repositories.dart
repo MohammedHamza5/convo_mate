@@ -34,6 +34,7 @@ class ChatRepositoryImpl implements ChatRepository {
       String content, {
         String? imageUrl,
         String? audioUrl,
+        int? audioDuration,
         String? replyTo,
       }) async {
     final userId = FirebaseAuth.instance.currentUser!.uid;
@@ -56,6 +57,7 @@ class ChatRepositoryImpl implements ChatRepository {
       message: content,
       imageUrl: imageUrl,
       audioUrl: audioUrl,
+      audioDuration: audioDuration,
       isSeen: false,
       isDelivered: false,
       isRead: false,
@@ -99,8 +101,6 @@ class ChatRepositoryImpl implements ChatRepository {
     await conversationRef.update({
       unreadCountField: FieldValue.increment(1),
     });
-    
-    print('تم إرسال رسالة وزيادة عداد الرسائل غير المقروءة للمستلم $receiverId');
   }
 
   @override
@@ -195,10 +195,8 @@ class ChatRepositoryImpl implements ChatRepository {
       // تنفيذ عملية التحديث الجماعية فقط إذا كان هناك تحديثات
       if (messageCount > 0) {
         await batch.commit();
-        print('تم تحديث $messageCount رسالة كمسلمة');
       }
     } catch (e) {
-      print('Error marking messages as delivered: $e');
       // يمكنك إعادة رمي الاستثناء هنا إذا لزم الأمر
       // throw e;
     }
@@ -269,10 +267,8 @@ class ChatRepositoryImpl implements ChatRepository {
       // تنفيذ عملية التحديث الجماعية فقط إذا كان هناك تحديثات
       if (messageCount > 0) {
         await batch.commit();
-        print('تم تحديث $messageCount رسالة كمقروءة وإعادة تعيين عداد الرسائل غير المقروءة للمستخدم $userId');
       }
     } catch (e) {
-      print('Error marking messages as read: $e');
       // يمكنك إعادة رمي الاستثناء هنا إذا لزم الأمر
       // throw e;
     }
@@ -325,11 +321,8 @@ class ChatRepositoryImpl implements ChatRepository {
     try {
       final userId = FirebaseAuth.instance.currentUser?.uid;
       if (userId == null || userId.isEmpty) {
-        print('toggleGhostMode: Cannot toggle - no authenticated user');
         throw Exception('لم يتم تسجيل الدخول');
       }
-      
-      print('toggleGhostMode: Setting ghost mode to $isEnabled for user $userId');
       
       // Update Firestore document
       await _firestore.collection('users').doc(userId).update({
@@ -339,20 +332,7 @@ class ChatRepositoryImpl implements ChatRepository {
       // Check if user is online and update the presence indicator
       final userDoc = await _firestore.collection('users').doc(userId).get();
       final isOnline = userDoc.data()?['isOnline'] ?? false;
-      
-      print('toggleGhostMode: User online status is $isOnline');
-      
-      // If the user is currently online and enabling ghost mode,
-      // we might want to notify others in some way
-      if (isEnabled) {
-        print('toggleGhostMode: Ghost mode enabled - user will appear offline to others');
-      } else {
-        print('toggleGhostMode: Ghost mode disabled - user will appear online if they are actually online');
-      }
-      
-      print('toggleGhostMode: Successfully updated ghost mode');
     } catch (e) {
-      print('toggleGhostMode: Error - $e');
       throw Exception('فشل في تحديث وضع التخفي: $e');
     }
   }
@@ -366,6 +346,7 @@ abstract class ChatRepository {
       String content, {
         String? imageUrl,
         String? audioUrl,
+        int? audioDuration,
         String? replyTo,
       });
   Future<void> deleteMessage(String chatId, String messageId);

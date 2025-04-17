@@ -33,7 +33,6 @@ class HomeCubit extends Cubit<HomeState> {
         onError: (error) {
           if (!isClosed) {
             emit(HomeError('حدث خطأ أثناء جلب المحادثات: $error'));
-            print('Error loading conversations: $error');
           }
         },
       );
