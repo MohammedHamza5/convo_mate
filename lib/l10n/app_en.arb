@@ -1,0 +1,312 @@
+{
+  "@@locale": "en",
+  "signUp": "Sign Up",
+  "fullName": "Full Name",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "pleaseEnterYourName": "Please enter your name",
+  "pleaseEnterYourEmail": "Please enter your email",
+  "invalidEmail": "Invalid email address",
+  "pleaseEnterYourPassword": "Please enter your password",
+  "passwordTooShort": "Password must be at least 6 characters",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "alreadyHaveAccount": "Already have an account? ",
+  "signIn": "Sign In",
+  "forgotPassword": "Forgot Password?",
+  "signInWithGoogle": "Sign in with Google",
+  "settings": "Settings",
+  "language": "Language",
+  "chooseLanguage": "Choose Language",
+  "passwordChanged": "Password changed successfully",
+  "errorTryAgain": "An error occurred, please try again",
+  "profile": "Profile",
+  "editProfile": "Edit Profile",
+  "name": "Name",
+  "saveChanges": "Save Changes",
+  "failedToUpdateLanguage": "Failed To Update Language",
+  "languageSubtitle": "languageSubtitle",
+  "arabic": "العربية",
+  "english": "الانجليزية",
+  "german": "الالمانية",
+  "copy": "نسخ",
+  "reply": "رد",
+  "edit": "تعديل",
+  "delete": "حذف",
+  "messageCopied": "تم نسخ الرسالة",
+  "noMessages": "noMessages",
+  "edited": "تم التعديل",
+  "editingMessage": "تعديل الرسالة",
+  "errorCreatingChat": "errorCreatingChat",
+  "replyingTo": "الرد على: {message}",
+  "failedToEditMessage": "فشل تعديل الرسالة: {error}",
+  "messageDeleted": "Message deleted",
+  "deletingMessage": "Deleting message...",
+  "retry": "retry",
+  "bio": "Bio",
+  "maritalStatus": "Marital Status",
+  "single": "Single",
+  "married": "Married",
+  "engaged": "Engaged",
+  "city": "City",
+  "interests": "Interests",
+  "selectAtLeastThreeInterests": "Please select at least 3 interests",
+  "profileUpdated": "Profile updated successfully!",
+  "errorUpdatingProfile": "Error updating profile: {error}",
+  "@errorUpdatingProfile": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "selectInterestsWithCount": "Interests (select 3 to 5) - {count}/5",
+  "@selectInterestsWithCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "interestSport": "Sports",
+  "interestTech": "Technology",
+  "interestMovies": "Movies",
+  "interestBooks": "Books",
+  "interestMusic": "Music",
+  "interestTravel": "Travel",
+  "interestGames": "Games",
+  "interestFood": "Food",
+  "save": "Save",
+  "cancel": "Cancel",
+  "logout": "Logout",
+  "chat": "Chat",
+  "sendMessage": "Send Message",
+  "messagePlaceholder": "Type your message here...",
+  "home": "Home",
+  "welcome": "Welcome",
+  "appDescription": "Connect and chat with friends!",
+  "startChat": "Start Chatting",
+  "viewProfile": "View Profile",
+  "notifications": "Notifications",
+  "enableNotifications": "Enable Notifications",
+  "notificationsSubtitle": "Receive notifications for new messages or requests",
+  "theme": "Theme",
+  "darkMode": "Dark Mode",
+  "lightMode": "Light Mode",
+  "userNotFound": "User not found",
+  "friendRequestSent": "Friend request sent!",
+  "friendRequestAccepted": "Friend request accepted!",
+  "friendRequestDeclined": "Friend request declined",
+  "friendshipRemoved": "Friendship removed",
+  "noInterests": "No interests",
+  "sendFriendRequest": "Send Friend Request",
+  "removeFriend": "Remove Friend",
+  "confirmRemoveFriend": "Are you sure?",
+  "accept": "Accept",
+  "decline": "Decline",
+  "confirm": "Confirm",
+  "appName": "ConvoMate",
+  "noMessagesYet": "No messages yet",
+  "days": "days",
+  "hours": "hours",
+  "minutes": "minutes",
+  "searchFriends": "Search for Friends",
+  "searchPlaceholder": "Search by name or interests...",
+  "noResults": "No results found",
+  "enterSearchTerm": "Enter a term to search",
+  "chats": "Chats",
+  "requests": "Requests",
+  "search": "Search",
+  "doNotHaveAccount": "Don't have an account? ",
+  "signUpLink": "Sign Up",
+  "loginLink": "Login",
+  "welcomeBack": "Welcome Back!",
+  "emailAddress": "Email Address",
+  "loginButton": "Login",
+  "selectInterests": "Select Your Interests",
+  "chooseInterests": "Choose 3 to 5 Interests",
+  "nextButton": "Next",
+  "noData": "No data to display",
+  "errorMessage": "Error: {error}",
+  "@errorMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "notificationsInDevelopment": "Notifications are under development",
+  "noConversations": "No conversations yet!",
+  "startNewConversation": "Start a new conversation!",
+  "suggestedUsers": "Suggested Users",
+  "errorFetchingUsers": "Error fetching users",
+  "noUsersAvailable": "No users available",
+  "noUsersWithSharedInterests": "No new users share your interests",
+  "commonInterests": "Common interests: {interests}",
+  "@commonInterests": {
+    "placeholders": {
+      "interests": {
+        "type": "Object"
+      }
+    }
+  },
+  "friends": "Your Friends",
+  "noFriendsYet": "No friends yet",
+  "loading": "Loading...",
+  "deleteChat": "Chat with {userName} deleted",
+  "@deleteChat": {
+    "placeholders": {
+      "userName": {
+        "type": "Object"
+      }
+    }
+  },
+  "friendRequests": "Friend Requests",
+  "noFriendRequests": "No incoming friend requests",
+  "incomingFriendRequest": "Incoming friend request",
+  "requestSent": "Sent: {time}",
+  "@requestSent": {
+    "placeholders": {
+      "time": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorFetchingRequests": "Error fetching requests: {error}",
+  "@errorFetchingRequests": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorFetchingUser": "Error fetching user data",
+  "sinceDays": "{count} days ago",
+  "@sinceDays": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "sinceHours": "{count} hours ago",
+  "@sinceHours": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "sinceMinutes": "{count} minutes ago",
+  "@sinceMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "unknownTime": "Unknown",
+  "online": "Online",
+  "offline": "Offline",
+  "startConversation": "Start the conversation!",
+  "playAudioInDevelopment": "Playing audio is under development",
+  "attachFilesInDevelopment": "Attaching files is under development",
+  "typeYourMessage": "Type your message...",
+  "failedToSendMessage": "Failed to send message: {error}",
+  "@failedToSendMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "chatError": "Chat error: {error}",
+  "@chatError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "timeFormat": "{hour}:{minute} {period}",
+  "@timeFormat": {
+    "placeholders": {
+      "hour": {
+        "type": "Object"
+      },
+      "minute": {
+        "type": "Object"
+      },
+      "period": {
+        "type": "Object"
+      }
+    }
+  },
+  "am": "AM",
+  "pm": "PM",
+  "changePassword": "Change Password",
+  "oldPassword": "Old Password",
+  "newPassword": "New Password",
+  "fillAllFields": "Please fill all fields",
+  "messagePrivacy": "Who Can Send Messages",
+  "messagePrivacySubtitle": "Control who can message you",
+  "everyone": "Everyone",
+  "friendsOnly": "Friends Only",
+  "logoutSubtitle": "Sign out of your current account",
+  "confirmLogout": "Confirm Logout",
+  "confirmLogoutMessage": "Are you sure you want to sign out?",
+  "deleteAccount": "Delete Account",
+  "deleteAccountSubtitle": "Permanently delete your account from the app",
+  "confirmDeleteAccount": "Confirm Account Deletion",
+  "confirmDeleteAccountMessage": "Enter your password to confirm account deletion. This action cannot be undone.",
+  "notSignedIn": "Not signed in",
+  "failedToLoadSettings": "Failed to load settings: {error}",
+  "@failedToLoadSettings": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "failedToUpdateNotifications": "Failed to update notifications: {error}",
+  "@failedToUpdateNotifications": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "failedToUpdateMessagePrivacy": "Failed to update message privacy: {error}",
+  "@failedToUpdateMessagePrivacy": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "failedToChangePassword": "Failed to change password: {error}",
+  "@failedToChangePassword": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "wrongPassword": "Incorrect password",
+  "failedToDeleteAccount": "Failed to delete account: {error}",
+  "@failedToDeleteAccount": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "failedToSignOut": "Failed to sign out: {error}",
+  "@failedToSignOut": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  }
+}

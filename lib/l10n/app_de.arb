@@ -1,0 +1,312 @@
+{
+  "@@locale": "de",
+  "signUp": "Registrieren",
+  "fullName": "Vollständiger Name",
+  "email": "E-Mail",
+  "password": "Passwort",
+  "confirmPassword": "Passwort bestätigen",
+  "pleaseEnterYourName": "Bitte geben Sie Ihren Namen ein",
+  "pleaseEnterYourEmail": "Bitte geben Sie Ihre E-Mail-Adresse ein",
+  "invalidEmail": "Ungültige E-Mail-Adresse",
+  "pleaseEnterYourPassword": "Bitte geben Sie Ihr Passwort ein",
+  "passwordTooShort": "Das Passwort muss mindestens 6 Zeichen lang sein",
+  "passwordsDoNotMatch": "Passwörter stimmen nicht überein",
+  "alreadyHaveAccount": "Haben Sie bereits ein Konto? ",
+  "signIn": "Anmelden",
+  "forgotPassword": "Passwort vergessen?",
+  "signInWithGoogle": "Mit Google anmelden",
+  "settings": "Einstellungen",
+  "language": "Sprache",
+  "chooseLanguage": "Sprache auswählen",
+  "passwordChanged": "Passwort erfolgreich geändert",
+  "errorTryAgain": "Ein Fehler ist aufgetreten, bitte versuchen Sie es erneut",
+  "profile": "Profil",
+  "editProfile": "Profil bearbeiten",
+  "name": "Name",
+  "bio": "Biografie",
+  "maritalStatus": "Familienstand",
+  "single": "Ledig",
+  "married": "Verheiratet",
+  "engaged": "Verlobt",
+  "city": "Stadt",
+  "interests": "Interessen",
+  "selectAtLeastThreeInterests": "Bitte wählen Sie mindestens 3 Interessen aus",
+  "profileUpdated": "Profil erfolgreich aktualisiert!",
+  "errorUpdatingProfile": "Fehler beim Aktualisieren des Profils: {error}",
+  "@errorUpdatingProfile": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "selectInterestsWithCount": "Interessen (wählen Sie 3 bis 5) - {count}/5",
+  "@selectInterestsWithCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "interestSport": "Sport",
+  "interestTech": "Technologie",
+  "interestMovies": "Filme",
+  "interestBooks": "Bücher",
+  "interestMusic": "Musik",
+  "interestTravel": "Reisen",
+  "interestGames": "Spiele",
+  "interestFood": "Essen",
+  "save": "Speichern",
+  "cancel": "Abbrechen",
+  "logout": "Abmelden",
+  "chat": "Chat",
+  "sendMessage": "Nachricht senden",
+  "messagePlaceholder": "Schreiben Sie Ihre Nachricht hier...",
+  "home": "Startseite",
+  "welcome": "Willkommen",
+  "appDescription": "Verbinden und chatten Sie mit Freunden!",
+  "startChat": "Chat starten",
+  "viewProfile": "Profil anzeigen",
+  "notifications": "Benachrichtigungen",
+  "enableNotifications": "Benachrichtigungen aktivieren",
+  "notificationsSubtitle": "Erhalten Sie Benachrichtigungen für neue Nachrichten oder Anfragen",
+  "theme": "Thema",
+  "darkMode": "Dunkler Modus",
+  "lightMode": "Heller Modus",
+  "userNotFound": "Benutzer nicht gefunden",
+  "friendRequestSent": "Freundschaftsanfrage gesendet!",
+  "friendRequestAccepted": "Freundschaftsanfrage akzeptiert!",
+  "friendRequestDeclined": "Freundschaftsanfrage abgelehnt",
+  "friendshipRemoved": "Freundschaft entfernt",
+  "noInterests": "Keine Interessen",
+  "sendFriendRequest": "Freundschaftsanfrage senden",
+  "removeFriend": "Freund entfernen",
+  "confirmRemoveFriend": "Sind Sie sicher?",
+  "accept": "Akzeptieren",
+  "failedToUpdateLanguage": "Failed To Update Language",
+  "languageSubtitle": "languageSubtitle",
+  "copy": "نسخ",
+  "reply": "رد",
+  "edit": "تعديل",
+  "delete": "حذف",
+  "messageCopied": "تم نسخ الرسالة",
+  "edited": "تم التعديل",
+  "editingMessage": "تعديل الرسالة",
+  "replyingTo": "الرد على: {message}",
+  "failedToEditMessage": "فشل تعديل الرسالة: {error}",
+  "messageDeleted": "Nachricht gelöscht",
+  "deletingMessage": "Nachricht wird gelöscht...",
+  "retry": "retry",
+  "noMessages": "noMessages",
+  "errorCreatingChat": "errorCreatingChat",
+  "arabic": "العربية",
+  "english": "الانجليزية",
+  "german": "الالمانية",
+  "saveChanges": "Änderungen speichern",
+  "decline": "Ablehnen",
+  "confirm": "Bestätigen",
+  "appName": "ConvoMate",
+  "noMessagesYet": "Noch keine Nachrichten",
+  "days": "Tage",
+  "hours": "Stunden",
+  "minutes": "Minuten",
+  "searchFriends": "Freunde suchen",
+  "searchPlaceholder": "Nach Name oder Interessen suchen...",
+  "noResults": "Keine Ergebnisse",
+  "enterSearchTerm": "Suchbegriff eingeben",
+  "chats": "Chats",
+  "requests": "Anfragen",
+  "search": "Suchen",
+  "doNotHaveAccount": "Sie haben noch kein Konto? ",
+  "signUpLink": "Registrieren",
+  "loginLink": "Anmelden",
+  "welcomeBack": "Willkommen zurück!",
+  "emailAddress": "E-Mail-Adresse",
+  "loginButton": "Anmelden",
+  "selectInterests": "Wählen Sie Ihre Interessen",
+  "chooseInterests": "Wählen Sie 3 bis 5 Interessen",
+  "nextButton": "Weiter",
+  "noData": "Keine Daten verfügbar",
+  "errorMessage": "Fehler: {error}",
+  "@errorMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "notificationsInDevelopment": "Benachrichtigungen in Entwicklung",
+  "noConversations": "Noch keine Unterhaltungen!",
+  "startNewConversation": "Beginnen Sie eine neue Unterhaltung!",
+  "suggestedUsers": "Vorgeschlagene Benutzer",
+  "errorFetchingUsers": "Fehler beim Abrufen der Benutzer",
+  "noUsersAvailable": "Keine Benutzer verfügbar",
+  "noUsersWithSharedInterests": "Keine neuen Benutzer mit gemeinsamen Interessen",
+  "commonInterests": "Gemeinsame Interessen: {interests}",
+  "@commonInterests": {
+    "placeholders": {
+      "interests": {
+        "type": "Object"
+      }
+    }
+  },
+  "friends": "Ihre Freunde",
+  "noFriendsYet": "Noch keine Freunde",
+  "loading": "Wird geladen...",
+  "deleteChat": "Chat mit {userName} gelöscht",
+  "@deleteChat": {
+    "placeholders": {
+      "userName": {
+        "type": "Object"
+      }
+    }
+  },
+  "friendRequests": "Freundschaftsanfragen",
+  "noFriendRequests": "Keine eingehenden Freundschaftsanfragen",
+  "incomingFriendRequest": "Eingehende Freundschaftsanfrage",
+  "requestSent": "Gesendet: {time}",
+  "@requestSent": {
+    "placeholders": {
+      "time": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorFetchingRequests": "Fehler beim Abrufen der Anfragen: {error}",
+  "@errorFetchingRequests": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorFetchingUser": "Fehler beim Abrufen der Benutzerdaten",
+  "sinceDays": "Vor {count} Tagen",
+  "@sinceDays": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "sinceHours": "Vor {count} Stunden",
+  "@sinceHours": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "sinceMinutes": "Vor {count} Minuten",
+  "@sinceMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "unknownTime": "Unbekannt",
+  "online": "Online",
+  "offline": "Offline",
+  "startConversation": "Beginnen Sie das Gespräch!",
+  "playAudioInDevelopment": "Audio-Wiedergabe in Entwicklung",
+  "attachFilesInDevelopment": "Dateien anhängen in Entwicklung",
+  "typeYourMessage": "Schreiben Sie Ihre Nachricht...",
+  "failedToSendMessage": "Senden der Nachricht fehlgeschlagen: {error}",
+  "@failedToSendMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "chatError": "Chat-Fehler: {error}",
+  "@chatError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "timeFormat": "{hour}:{minute} {period}",
+  "@timeFormat": {
+    "placeholders": {
+      "hour": {
+        "type": "Object"
+      },
+      "minute": {
+        "type": "Object"
+      },
+      "period": {
+        "type": "Object"
+      }
+    }
+  },
+  "am": "",
+  "pm": "",
+  "changePassword": "Passwort ändern",
+  "oldPassword": "Altes Passwort",
+  "newPassword": "Neues Passwort",
+  "fillAllFields": "Bitte füllen Sie alle Felder aus",
+  "messagePrivacy": "Wer kann Nachrichten senden",
+  "messagePrivacySubtitle": "Kontrollieren Sie, wer Ihnen Nachrichten senden kann",
+  "everyone": "Jeder",
+  "friendsOnly": "Nur Freunde",
+  "logoutSubtitle": "Von Ihrem aktuellen Konto abmelden",
+  "confirmLogout": "Abmeldung bestätigen",
+  "confirmLogoutMessage": "Sind Sie sicher, dass Sie sich abmelden möchten?",
+  "deleteAccount": "Konto löschen",
+  "deleteAccountSubtitle": "Ihr Konto dauerhaft aus der App löschen",
+  "confirmDeleteAccount": "Kontolöschung bestätigen",
+  "confirmDeleteAccountMessage": "Geben Sie Ihr Passwort ein, um die Kontolöschung zu bestätigen. Diese Aktion kann nicht rückgängig gemacht werden.",
+  "notSignedIn": "Nicht angemeldet",
+  "failedToLoadSettings": "Fehler beim Laden der Einstellungen: {error}",
+  "@failedToLoadSettings": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "failedToUpdateNotifications": "Fehler beim Aktualisieren der Benachrichtigungen: {error}",
+  "@failedToUpdateNotifications": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "failedToUpdateMessagePrivacy": "Fehler beim Aktualisieren der Nachrichtenprivatsphäre: {error}",
+  "@failedToUpdateMessagePrivacy": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "failedToChangePassword": "Fehler beim Ändern des Passworts: {error}",
+  "@failedToChangePassword": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "wrongPassword": "Falsches Passwort",
+  "failedToDeleteAccount": "Fehler beim Löschen des Kontos: {error}",
+  "@failedToDeleteAccount": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "failedToSignOut": "Fehler beim Abmelden: {error}",
+  "@failedToSignOut": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  }
+}

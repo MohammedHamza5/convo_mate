@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
+
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
@@ -16,18 +20,20 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const FlutterLogo(size: 100),
-            const SizedBox(height: 20),
-            const Text(
-              'ConvoMate',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            FlutterLogo(size: 100.w),
+            SizedBox(height: 20.h),
+            Text(
+              localizations.appName,
+              style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
             ),
           ],
         ),

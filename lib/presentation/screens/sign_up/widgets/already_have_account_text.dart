@@ -1,28 +1,44 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart'; // استيراد GoRouter للتنقل بين الصفحات
-import '../../../styles/text_styles.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AlreadyHaveAccountText extends StatelessWidget {
-  const AlreadyHaveAccountText({super.key});
+  final Color? textColor;
+  final Color? accentColor;
+
+  const AlreadyHaveAccountText({super.key, this.textColor, this.accentColor});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => context.go('/login'),
-      child: RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: "Already have an account yet?",
-              style: TextStyles.bodyText.copyWith(color: Colors.grey[700]), // تحسين لون النص
-            ),
-            TextSpan(
-              text: ' Login',
-              style: TextStyles.linkText.copyWith(fontWeight: FontWeight.bold),
-            ),
-          ],
+    final localizations = AppLocalizations.of(context)!;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final linkColor = accentColor ?? (isDarkMode ? Colors.blueGrey.shade400 : Colors.blue.shade400);
+    return RichText(
+      text: TextSpan(
+        text: localizations.alreadyHaveAccount,
+        style: GoogleFonts.cairo(
+          fontSize: 14.sp,
+          color: textColor ?? (isDarkMode ? Colors.white : Colors.black87),
         ),
+        children: [
+          TextSpan(
+            text: localizations.loginLink,
+            style: GoogleFonts.cairo(
+              fontSize: 14.sp,
+              color: linkColor,
+              fontWeight: FontWeight.bold,
+              decoration: TextDecoration.underline,
+              decorationColor: linkColor,
+            ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                context.go('/login');
+              },
+          ),
+        ],
       ),
     );
   }
