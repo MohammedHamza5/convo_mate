@@ -15,8 +15,8 @@ class InterestCubit extends Cubit<InterestState> {
     try {
       QuerySnapshot snapshot = await _firestore.collection('interests').get();
       if (snapshot.docs.isEmpty) {
-        await addInterestsToFirestore(); // إضافة الاهتمامات إذا لم تكن موجودة
-        snapshot = await _firestore.collection('interests').get(); // إعادة جلب البيانات
+        await addInterestsToFirestore();
+        snapshot = await _firestore.collection('interests').get();
       }
       allInterests = snapshot.docs.map((doc) {
         return InterestModel.fromMap(doc.data() as Map<String, dynamic>);
@@ -27,11 +27,11 @@ class InterestCubit extends Cubit<InterestState> {
     }
   }
 
-  void toggleInterest(String interestId) {
-    if (selectedInterests.contains(interestId)) {
-      selectedInterests.remove(interestId);
+  void toggleInterest(String interestName) {
+    if (selectedInterests.contains(interestName)) {
+      selectedInterests.remove(interestName);
     } else if (selectedInterests.length < 5) {
-      selectedInterests.add(interestId);
+      selectedInterests.add(interestName);
     }
     emit(InterestLoaded(allInterests, List.from(selectedInterests)));
   }
@@ -54,7 +54,6 @@ class InterestCubit extends Cubit<InterestState> {
 
   Future<void> addInterestsToFirestore() async {
     final collectionRef = _firestore.collection('interests');
-    // التحقق مما إذا كانت الاهتمامات مضافة مسبقًا
     QuerySnapshot snapshot = await collectionRef.get();
     if (snapshot.docs.isNotEmpty) {
       print("⚠ الاهتمامات موجودة بالفعل في Firestore.");
@@ -62,24 +61,24 @@ class InterestCubit extends Cubit<InterestState> {
     }
 
     List<InterestModel> interests = [
-      InterestModel(id: '1', name: 'رياضة', icon: 'assets/icons/sports-basketball-svgrepo-com.svg'),
-      InterestModel(id: '2', name: 'تقنية', icon: 'assets/icons/chat-computer-support-svgrepo-com.svg'),
-      InterestModel(id: '3', name: 'أفلام', icon: 'assets/icons/movies-svgrepo-com.svg'),
-      InterestModel(id: '4', name: 'كتب', icon: 'assets/icons/books-book-svgrepo-com.svg'),
-      InterestModel(id: '5', name: 'موسيقى', icon: 'assets/icons/music-notes-svgrepo-com.svg'),
-      InterestModel(id: '6', name: 'سفر', icon: 'assets/icons/travel-svgrepo-com.svg'),
-      InterestModel(id: '7', name: 'ألعاب', icon: 'assets/icons/gaming-pad-svgrepo-com.svg'),
-      InterestModel(id: '8', name: 'طعام', icon: 'assets/icons/food-and-drink-svgrepo-com.svg'),
+      InterestModel(name: 'رياضة', icon: 'assets/icons/sports-basketball-svgrepo-com.svg'),
+      InterestModel(name: 'تقنية', icon: 'assets/icons/chat-computer-support-svgrepo-com.svg'),
+      InterestModel(name: 'أفلام', icon: 'assets/icons/movies-svgrepo-com.svg'),
+      InterestModel(name: 'كتب', icon: 'assets/icons/books-book-svgrepo-com.svg'),
+      InterestModel(name: 'موسيقى', icon: 'assets/icons/music-notes-svgrepo-com.svg'),
+      InterestModel(name: 'سفر', icon: 'assets/icons/travel-svgrepo-com.svg'),
+      InterestModel(name: 'ألعاب', icon: 'assets/icons/gaming-pad-svgrepo-com.svg'),
+      InterestModel(name: 'طعام', icon: 'assets/icons/food-and-drink-svgrepo-com.svg'),
     ];
 
     try {
       for (var interest in interests) {
-        await collectionRef.doc(interest.id).set(interest.toMap(), SetOptions(merge: true));
+        await collectionRef.doc(interest.name).set(interest.toMap(), SetOptions(merge: true));
       }
       print("✅ الاهتمامات تمت إضافتها إلى Firestore بنجاح!");
     } catch (e) {
       print("حدث خطأ أثناء إضافة الاهتمامات: $e");
-      throw e; // للسماح بمعالجة الخطأ في loadInterests
+      throw e;
     }
   }
 }

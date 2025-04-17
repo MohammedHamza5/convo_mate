@@ -8,47 +8,60 @@ import 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   AuthCubit() : super(AuthInitial());
+
+  Future<bool> _hasSelectedInterests(String userId) async {
+    final userDoc = await _firestore.collection('users').doc(userId).get();
+    if (!userDoc.exists) return false;
+    final data = userDoc.data();
+    return data != null &&
+        data.containsKey('interests') &&
+        (data['interests'] as List).isNotEmpty;
+  }
 
   Future<void> loginWithEmail(String email, String password) async {
     emit(AuthLoading());
     try {
+      final userCredential =
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      emit(AuthSuccess());
+      final hasInterests = await _hasSelectedInterests(userCredential.user!.uid);
+      emit(AuthSuccess(hasSelectedInterests: hasInterests));
     } catch (e) {
       emit(AuthFailure(e.toString()));
     }
   }
 
   Future<void> registerWithEmail(
-    String email,
-    String password,
-    String username,
-  ) async {
+      String email, String password, String username) async {
     emit(AuthLoading());
     try {
-      UserCredential userCredential = await _auth
-          .createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       await userCredential.user!.updateDisplayName(username);
-      emit(AuthSuccess());
-      // إنشاء كائن UserModel
+
       UserModel userModel = UserModel(
         uid: userCredential.user!.uid,
         name: username,
         email: email,
-        // phone: phone,
-        profileImage: '', // صورة افتراضية
-        interests: [], // قائمة فارغة في البداية
-        isOnline: false, // غير متصل افتراضيًا
-        lastSeen: DateTime.now(), // الوقت الحالي
+        profileImage: '',
+        interests: [],
+        friends: [],
+        isOnline: true,
+        lastSeen: DateTime.now(),
+        maritalStatus: null,
+        bio: null,
+        birthDate: null,
+        city: null,
       );
 
-      // حفظ بيانات المستخدم في Firestore
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userCredential.user!.uid)
           .set(userModel.toJson());
+
+      emit(AuthSuccess(hasSelectedInterests: false));
     } catch (e) {
       emit(AuthFailure(e.toString()));
     }
@@ -59,24 +72,43 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
-        print("Google Sign-In cancelled by user");
         emit(AuthFailure("لم يكتمل تسجيل الدخول."));
         return;
       }
 
-      print("Google User: ${googleUser.email}");
       final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+      await googleUser.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      await _auth.signInWithCredential(credential);
-      print("Google Sign-In successful");
-      emit(AuthSuccess());
+      final userCredential = await _auth.signInWithCredential(credential);
+      final userId = userCredential.user!.uid;
+
+      final userDoc = await _firestore.collection('users').doc(userId).get();
+      if (!userDoc.exists) {
+        UserModel userModel = UserModel(
+          uid: userId,
+          name: googleUser.displayName ?? 'مستخدم',
+          email: googleUser.email,
+          profileImage: googleUser.photoUrl,
+          interests: [],
+          friends: [],
+          isOnline: true,
+          lastSeen: DateTime.now(),
+          maritalStatus: null,
+          bio: null,
+          birthDate: null,
+          city: null,
+        );
+        await _firestore.collection('users').doc(userId).set(userModel.toJson());
+        emit(AuthSuccess(hasSelectedInterests: false));
+      } else {
+        final hasInterests = await _hasSelectedInterests(userId);
+        emit(AuthSuccess(hasSelectedInterests: hasInterests));
+      }
     } catch (e) {
-      print("Google Sign-In error: $e");
       emit(AuthFailure(e.toString()));
     }
   }

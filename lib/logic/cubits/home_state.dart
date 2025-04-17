@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import '../../data/models/chat_model.dart';
 import '../../data/models/user_model.dart';
 
-
 abstract class HomeState extends Equatable {
   const HomeState();
 

@@ -1,44 +1,64 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
+  final TextInputType? keyboardType;
   final bool obscureText;
-  final TextInputType keyboardType;
-  final String? Function(String?)? validator;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final String? Function(String?)? validator;
+  final Color? fillColor;
+  final Color? textColor;
+  final double? fontSize;
+  final TextDirection? textDirection;
 
   const CustomTextField({
     super.key,
     required this.controller,
     required this.hintText,
+    this.keyboardType,
     this.obscureText = false,
-    this.keyboardType = TextInputType.text,
-    this.validator,
     this.prefixIcon,
     this.suffixIcon,
+    this.validator,
+    this.fillColor,
+    this.textColor,
+    this.fontSize,
+    this.textDirection,
   });
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return TextFormField(
       controller: controller,
-      obscureText: obscureText,
       keyboardType: keyboardType,
-      validator: validator,
+      obscureText: obscureText,
+      style: GoogleFonts.cairo(
+        color: textColor ?? (isDarkMode ? Colors.white : Colors.black87),
+        fontSize: fontSize ?? 16.sp,
+      ),
+      textDirection: textDirection,
       decoration: InputDecoration(
         hintText: hintText,
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon, // Add suffixIcon here
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.grey.shade300),
+        hintStyle: GoogleFonts.cairo(
+          color: (textColor ?? (isDarkMode ? Colors.white : Colors.black87)).withOpacity(0.6),
+          fontSize: fontSize ?? 16.sp,
         ),
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
         filled: true,
-        fillColor: Colors.grey.shade100,
-        contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+        fillColor: fillColor ?? (isDarkMode ? Colors.grey[800] : Colors.grey[100]),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide.none,
+        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
       ),
+      validator: validator,
     );
   }
 }

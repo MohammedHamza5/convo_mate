@@ -1,13 +1,17 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../data/models/chat_model.dart';
 import '../../data/repositories/chat_repositories.dart';
 import 'home_state.dart';
-
+import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   final ChatRepository _chatRepository;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  StreamSubscription<List<ChatModel>>? _conversationsSubscription;
 
   HomeCubit(this._chatRepository) : super(HomeInitial());
 
@@ -17,16 +21,26 @@ class HomeCubit extends Cubit<HomeState> {
       emit(HomeError('لم يتم تسجيل الدخول'));
       return;
     }
-
     try {
+      _conversationsSubscription?.cancel(); // إلغاء الاشتراك السابق
       final stream = _chatRepository.getConversations(userId);
-      stream.listen((chats) {
-        emit(HomeLoaded(chats: chats));
-      }, onError: (error) {
-        emit(HomeError('حدث خطأ أثناء جلب المحادثات: $error'));
-      });
+      _conversationsSubscription = stream.listen(
+            (chats) {
+          if (!isClosed) {
+            emit(HomeLoaded(chats: chats));
+          }
+        },
+        onError: (error) {
+          if (!isClosed) {
+            emit(HomeError('حدث خطأ أثناء جلب المحادثات: $error'));
+            print('Error loading conversations: $error');
+          }
+        },
+      );
     } catch (e) {
-      emit(HomeError('حدث خطأ: $e'));
+      if (!isClosed) {
+        emit(HomeError('حدث خطأ: $e'));
+      }
     }
   }
 
@@ -60,6 +74,7 @@ class HomeCubit extends Cubit<HomeState> {
   void deleteChat(String chatId) async {
     try {
       await _chatRepository.deleteChat(chatId);
+      loadConversations(); // إعادة تحميل المحادثات بعد الحذف
     } catch (e) {
       emit(HomeError('حدث خطأ أثناء حذف المحادثة: $e'));
     }
@@ -76,10 +91,18 @@ class HomeCubit extends Cubit<HomeState> {
 
   void logout() async {
     try {
+      // قم بتسجيل الخروج مباشرة
       await _auth.signOut();
       emit(HomeLoggedOut());
     } catch (e) {
       emit(HomeError('حدث خطأ أثناء تسجيل الخروج: $e'));
     }
+  }
+
+  @override
+  Future<void> close() {
+    _conversationsSubscription?.cancel();
+    _conversationsSubscription = null;
+    return super.close();
   }
 }

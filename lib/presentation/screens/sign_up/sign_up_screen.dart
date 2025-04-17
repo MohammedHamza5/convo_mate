@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../logic/cubits/auth_cubit.dart';
 import '../../../logic/cubits/auth_state.dart';
 import '../../widgets/custom_button.dart';
@@ -37,7 +39,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final backgroundColor = isDarkMode ? Colors.grey[900]! : Colors.white;
+    final textColor = isDarkMode ? Colors.white : Colors.black87;
+    final accentColor = isDarkMode ? Colors.blueGrey.shade700 : Colors.blue.shade400;
+
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: BlocProvider(
         create: (context) => AuthCubit(),
         child: BlocConsumer<AuthCubit, AuthState>(
@@ -46,14 +55,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
               context.go('/interest');
             } else if (state is AuthFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.error)),
+                SnackBar(
+                  content: Text(
+                    state.error,
+                    style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                  ),
+                  backgroundColor: Colors.red,
+                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                ),
               );
             }
           },
           builder: (context, state) {
             return Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(16.w),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -61,82 +77,102 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     children: [
                       FadeInDown(
                         delay: const Duration(milliseconds: 500),
-                        child: const Text(
-                          "Sign Up",
-                          style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                        child: Text(
+                          localizations.signUp,
+                          style: TextStyle(
+                            fontSize: 26.sp,
+                            fontWeight: FontWeight.bold,
+                            color: textColor,
+                          ),
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 20.h),
                       FadeInLeft(
                         delay: const Duration(milliseconds: 600),
                         child: CustomTextField(
                           controller: nameController,
-                          hintText: "Full Name",
-                          prefixIcon: const Icon(Icons.person),
-                          validator: (value) => value!.isEmpty ? "Please enter your name" : null,
+                          hintText: localizations.fullName,
+                          prefixIcon: Icon(Icons.person, color: textColor.withOpacity(0.6)),
+                          validator: (value) => value!.isEmpty ? localizations.pleaseEnterYourName : null,
+                          fillColor: isDarkMode ? Colors.grey[800] : Colors.grey[100],
+                          textColor: textColor,
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       FadeInLeft(
                         delay: const Duration(milliseconds: 700),
                         child: CustomTextField(
                           controller: emailController,
-                          hintText: "Email",
+                          hintText: localizations.email,
                           keyboardType: TextInputType.emailAddress,
-                          prefixIcon: const Icon(Icons.email),
+                          prefixIcon: Icon(Icons.email, color: textColor.withOpacity(0.6)),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "الرجاء إدخال البريد الإلكتروني";
+                              return localizations.pleaseEnterYourEmail;
                             }
                             String emailPattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
                             if (!RegExp(emailPattern).hasMatch(value)) {
-                              return "عنوان البريد الإلكتروني غير صالح";
+                              return localizations.invalidEmail;
                             }
                             return null;
                           },
+                          fillColor: isDarkMode ? Colors.grey[800] : Colors.grey[100],
+                          textColor: textColor,
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       FadeInLeft(
                         delay: const Duration(milliseconds: 800),
                         child: CustomTextField(
                           controller: passwordController,
-                          hintText: "Password",
+                          hintText: localizations.password,
                           obscureText: _obscurePassword,
-                          prefixIcon: const Icon(Icons.lock),
+                          prefixIcon: Icon(Icons.lock, color: textColor.withOpacity(0.6)),
                           suffixIcon: IconButton(
-                            icon: Icon(_obscurePassword ? Icons.visibility : Icons.visibility_off),
+                            icon: Icon(
+                              _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                              color: textColor.withOpacity(0.6),
+                              size: 20.sp,
+                            ),
                             onPressed: () {
                               setState(() {
                                 _obscurePassword = !_obscurePassword;
                               });
                             },
                           ),
-                          validator: (value) => value!.length < 6 ? "Password must be at least 6 characters" : null,
+                          validator: (value) => value!.length < 6 ? localizations.passwordTooShort : null,
+                          fillColor: isDarkMode ? Colors.grey[800] : Colors.grey[100],
+                          textColor: textColor,
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       FadeInLeft(
                         delay: const Duration(milliseconds: 900),
                         child: CustomTextField(
                           controller: confirmPasswordController,
-                          hintText: "Confirm Password",
+                          hintText: localizations.confirmPassword,
                           obscureText: _obscureConfirmPassword,
-                          prefixIcon: const Icon(Icons.lock_outline),
+                          prefixIcon: Icon(Icons.lock_outline, color: textColor.withOpacity(0.6)),
                           suffixIcon: IconButton(
-                            icon: Icon(_obscureConfirmPassword ? Icons.visibility : Icons.visibility_off),
+                            icon: Icon(
+                              _obscureConfirmPassword ? Icons.visibility : Icons.visibility_off,
+                              color: textColor.withOpacity(0.6),
+                              size: 20.sp,
+                            ),
                             onPressed: () {
                               setState(() {
                                 _obscureConfirmPassword = !_obscureConfirmPassword;
                               });
                             },
                           ),
-                          validator: (value) => value != passwordController.text ? "Passwords do not match" : null,
+                          validator: (value) => value != passwordController.text ? localizations.passwordsDoNotMatch : null,
+                          fillColor: isDarkMode ? Colors.grey[800] : Colors.grey[100],
+                          textColor: textColor,
                         ),
                       ),
-                      const SizedBox(height: 40),
+                      SizedBox(height: 40.h),
                       state is AuthLoading
-                          ? const CircularProgressIndicator()
+                          ? CircularProgressIndicator(color: accentColor)
                           : FadeInUp(
                         delay: const Duration(milliseconds: 1000),
                         child: CustomButton(
@@ -149,22 +185,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               );
                             }
                           },
-                          text: "Sign Up",
+                          text: localizations.signUp,
+                          backgroundColor: accentColor,
+                          textColor: Colors.white,
                         ),
                       ),
-                      const SizedBox(height: 40),
+                      SizedBox(height: 40.h),
                       state is AuthLoading
                           ? const SizedBox()
                           : FadeInUp(
                         delay: const Duration(milliseconds: 1100),
-                        child: const GoogleSignInButton(),
+                        child: GoogleSignInButton(
+                          backgroundColor: isDarkMode ? Colors.grey[800] : Colors.white,
+                          textColor: textColor,
+                        ),
                       ),
-                      const SizedBox(height: 40),
+                      SizedBox(height: 40.h),
                       FadeInUp(
                         delay: const Duration(milliseconds: 1200),
-                        child: GestureDetector(
-                          onTap: () => context.go('/login'),
-                          child: const AlreadyHaveAccountText(),
+                        child: AlreadyHaveAccountText(
+                          textColor: textColor,
+                          accentColor: accentColor,
                         ),
                       ),
                     ],

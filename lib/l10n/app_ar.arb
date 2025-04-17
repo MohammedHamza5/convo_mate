@@ -1,0 +1,312 @@
+{
+  "@@locale": "ar",
+  "signUp": "التسجيل",
+  "fullName": "الاسم الكامل",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "confirmPassword": "تأكيد كلمة المرور",
+  "pleaseEnterYourName": "الرجاء إدخال اسمك",
+  "pleaseEnterYourEmail": "الرجاء إدخال البريد الإلكتروني",
+  "invalidEmail": "عنوان البريد الإلكتروني غير صالح",
+  "pleaseEnterYourPassword": "الرجاء إدخال كلمة المرور",
+  "passwordTooShort": "كلمة المرور يجب أن تكون 6 أحرف على الأقل",
+  "passwordsDoNotMatch": "كلمات المرور غير متطابقة",
+  "alreadyHaveAccount": "هل لديك حساب؟ ",
+  "signIn": "تسجيل الدخول",
+  "forgotPassword": "هل نسيت كلمة المرور؟",
+  "saveChanges": "حفظ التغييرات",
+  "failedToUpdateLanguage": "خطأ في تحديث اللغة",
+  "languageSubtitle": "languageSubtitle",
+  "arabic": "العربية",
+  "english": "الانجليزية",
+  "german": "الالمانية",
+  "signInWithGoogle": "تسجيل الدخول باستخدام جوجل",
+  "settings": "الإعدادات",
+  "language": "اللغة",
+  "chooseLanguage": "اختر اللغة",
+  "passwordChanged": "تم تغيير كلمة المرور بنجاح",
+  "errorTryAgain": "حدث خطأ، حاول مرة أخرى",
+  "profile": "الملف الشخصي",
+  "editProfile": "تعديل الملف الشخصي",
+  "name": "الاسم",
+  "bio": "نبذة تعريفية",
+  "maritalStatus": "الحالة الاجتماعية",
+  "single": "أعزب",
+  "married": "متزوج",
+  "engaged": "مخطوب",
+  "city": "المدينة",
+  "interests": "الاهتمامات",
+  "selectAtLeastThreeInterests": "يرجى اختيار 3 اهتمامات على الأقل",
+  "profileUpdated": "تم تحديث الملف الشخصي بنجاح!",
+  "copy": "نسخ",
+  "reply": "رد",
+  "edit": "تعديل",
+  "delete": "حذف",
+  "messageCopied": "تم نسخ الرسالة",
+  "edited": "تم التعديل",
+  "retry": "retry",
+  "errorCreatingChat": "errorCreatingChat",
+  "noMessages": "noMessages",
+  "editingMessage": "تعديل الرسالة",
+  "replyingTo": "الرد على: {message}",
+  "failedToEditMessage": "فشل تعديل الرسالة: {error}",
+  "messageDeleted": "تم حذف الرسالة",
+  "deletingMessage": "جارٍ حذف الرسالة...",
+  "errorUpdatingProfile": "خطأ في تحديث الملف الشخصي: {error}",
+  "@errorUpdatingProfile": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "selectInterestsWithCount": "الاهتمامات (اختر 3 إلى 5) - {count}/5",
+  "@selectInterestsWithCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "interestSport": "الرياضة",
+  "interestTech": "التكنولوجيا",
+  "interestMovies": "الأفلام",
+  "interestBooks": "الكتب",
+  "interestMusic": "الموسيقى",
+  "interestTravel": "السفر",
+  "interestGames": "الألعاب",
+  "interestFood": "الطعام",
+  "save": "حفظ",
+  "cancel": "إلغاء",
+  "logout": "تسجيل الخروج",
+  "chat": "الدردشة",
+  "sendMessage": "إرسال رسالة",
+  "messagePlaceholder": "اكتب رسالتك هنا...",
+  "home": "الرئيسية",
+  "welcome": "مرحبًا",
+  "appDescription": "تواصل ودردش مع الأصدقاء!",
+  "startChat": "ابدأ الدردشة",
+  "viewProfile": "عرض الملف الشخصي",
+  "notifications": "الإشعارات",
+  "enableNotifications": "تفعيل الإشعارات",
+  "notificationsSubtitle": "تلقى إشعارات عند وصول رسائل أو طلبات جديدة",
+  "theme": "الوضع",
+  "darkMode": "الوضع الداكن",
+  "lightMode": "الوضع الفاتح",
+  "userNotFound": "المستخدم غير موجود",
+  "friendRequestSent": "تم إرسال طلب الصداقة!",
+  "friendRequestAccepted": "تم قبول طلب الصداقة!",
+  "friendRequestDeclined": "تم رفض طلب الصداقة",
+  "friendshipRemoved": "تم إلغاء الصداقة",
+  "noInterests": "لا توجد اهتمامات",
+  "sendFriendRequest": "إرسال طلب الصداقة",
+  "removeFriend": "إلغاء الصداقة",
+  "confirmRemoveFriend": "هل أنت متأكد؟",
+  "accept": "قبول",
+  "decline": "رفض",
+  "confirm": "تأكيد",
+  "appName": "كونفوميت",
+  "noMessagesYet": "لا توجد رسائل بعد",
+  "days": "أيام",
+  "hours": "ساعات",
+  "minutes": "دقائق",
+  "searchFriends": "البحث عن أصدقاء",
+  "searchPlaceholder": "ابحث بالاسم أو الاهتمامات...",
+  "noResults": "لا توجد نتائج",
+  "enterSearchTerm": "أدخل كلمة للبحث",
+  "chats": "المحادثات",
+  "requests": "الطلبات",
+  "search": "البحث",
+  "doNotHaveAccount": "ليس لديك حساب؟ ",
+  "signUpLink": "التسجيل",
+  "loginLink": "تسجيل الدخول",
+  "welcomeBack": "مرحبًا بعودتك!",
+  "emailAddress": "عنوان البريد الإلكتروني",
+  "loginButton": "تسجيل الدخول",
+  "selectInterests": "اختر اهتماماتك",
+  "chooseInterests": "اختر من 3 إلى 5 اهتمامات",
+  "nextButton": "التالي",
+  "noData": "لا توجد بيانات لعرضها",
+  "errorMessage": "خطأ: {error}",
+  "@errorMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "notificationsInDevelopment": "الإشعارات قيد التطوير",
+  "noConversations": "لا توجد محادثات بعد!",
+  "startNewConversation": "ابدأ محادثة جديدة!",
+  "suggestedUsers": "مستخدمون مقترحون",
+  "errorFetchingUsers": "خطأ في جلب المستخدمين",
+  "noUsersAvailable": "لا يوجد مستخدمون متاحون",
+  "noUsersWithSharedInterests": "لا يوجد مستخدمون جدد يشاركونك الاهتمامات",
+  "commonInterests": "اهتمامات مشتركة: {interests}",
+  "@commonInterests": {
+    "placeholders": {
+      "interests": {
+        "type": "Object"
+      }
+    }
+  },
+  "friends": "أصدقائك",
+  "noFriendsYet": "لا يوجد أصدقاء بعد",
+  "loading": "جارٍ التحميل...",
+  "deleteChat": "تم حذف محادثة {userName}",
+  "@deleteChat": {
+    "placeholders": {
+      "userName": {
+        "type": "Object"
+      }
+    }
+  },
+  "friendRequests": "طلبات الصداقة",
+  "noFriendRequests": "لا توجد طلبات صداقة واردة",
+  "incomingFriendRequest": "طلب صداقة وارد",
+  "requestSent": "تم الإرسال: {time}",
+  "@requestSent": {
+    "placeholders": {
+      "time": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorFetchingRequests": "خطأ في جلب الطلبات: {error}",
+  "@errorFetchingRequests": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorFetchingUser": "خطأ في جلب بيانات المستخدم",
+  "sinceDays": "منذ {count} يوم",
+  "@sinceDays": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "sinceHours": "منذ {count} ساعة",
+  "@sinceHours": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "sinceMinutes": "منذ {count} دقيقة",
+  "@sinceMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "unknownTime": "غير معروف",
+  "online": "متصل",
+  "offline": "غير متصل",
+  "startConversation": "ابدأ المحادثة!",
+  "playAudioInDevelopment": "تشغيل الصوت قيد التطوير",
+  "attachFilesInDevelopment": "إرفاق الملفات قيد التطوير",
+  "typeYourMessage": "اكتب رسالتك...",
+  "failedToSendMessage": "فشل إرسال الرسالة: {error}",
+  "@failedToSendMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "chatError": "خطأ في المحادثة: {error}",
+  "@chatError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "timeFormat": "{hour}:{minute} {period}",
+  "@timeFormat": {
+    "placeholders": {
+      "hour": {
+        "type": "Object"
+      },
+      "minute": {
+        "type": "Object"
+      },
+      "period": {
+        "type": "Object"
+      }
+    }
+  },
+  "am": "ص",
+  "pm": "م",
+  "changePassword": "تغيير كلمة المرور",
+  "oldPassword": "كلمة المرور القديمة",
+  "newPassword": "كلمة المرور الجديدة",
+  "fillAllFields": "يرجى ملء جميع الحقول",
+  "messagePrivacy": "من يمكنه إرسال الرسائل",
+  "messagePrivacySubtitle": "تحكم بمن يمكنه مراسلتك",
+  "everyone": "الجميع",
+  "friendsOnly": "الأصدقاء فقط",
+  "logoutSubtitle": "الخروج من حسابك الحالي",
+  "confirmLogout": "تأكيد تسجيل الخروج",
+  "confirmLogoutMessage": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+  "deleteAccount": "حذف الحساب",
+  "deleteAccountSubtitle": "حذف حسابك نهائيًا من التطبيق",
+  "confirmDeleteAccount": "تأكيد حذف الحساب",
+  "confirmDeleteAccountMessage": "أدخل كلمة المرور لتأكيد حذف حسابك. هذا الإجراء لا يمكن التراجع عنه.",
+  "notSignedIn": "لم يتم تسجيل الدخول",
+  "failedToLoadSettings": "فشل في جلب الإعدادات: {error}",
+  "@failedToLoadSettings": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "failedToUpdateNotifications": "فشل في تحديث الإشعارات: {error}",
+  "@failedToUpdateNotifications": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "failedToUpdateMessagePrivacy": "فشل في تحديث خصوصية الرسائل: {error}",
+  "@failedToUpdateMessagePrivacy": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "failedToChangePassword": "فشل في تغيير كلمة المرور: {error}",
+  "@failedToChangePassword": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "wrongPassword": "كلمة المرور غير صحيحة",
+  "failedToDeleteAccount": "فشل في حذف الحساب: {error}",
+  "@failedToDeleteAccount": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "failedToSignOut": "فشل في تسجيل الخروج: {error}",
+  "@failedToSignOut": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  }
+}
