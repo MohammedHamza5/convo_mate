@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import '../../../data/models/chat_model.dart';
 import '../../../data/models/message_model.dart';
 import '../../data/repositories/chat_repositories.dart';
+
 part 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
@@ -30,75 +31,72 @@ class ChatCubit extends Cubit<ChatState> {
       }
 
       final userId = FirebaseAuth.instance.currentUser!.uid;
-      
-      // وضع علامة على الرسائل كمسلمة ومقروءة عند فتح المحادثة
       await _repository.markMessagesAsDelivered(chatId, userId);
       await _repository.markMessagesAsRead(chatId, userId);
 
       _messagesSubscription?.cancel();
       final messagesStream = _repository.getMessages(chatId);
       _messagesSubscription = messagesStream.listen(
-        (messages) async {
+            (messages) async {
           if (!isClosed) {
-            // تحديث حالة الإيصال والقراءة للرسائل الجديدة عند وصولها
-            final hasNewMessages = messages.any((msg) => 
-              msg.receiverId == userId && (!msg.isDelivered || !msg.isRead));
-            
+            final hasNewMessages = messages.any((msg) =>
+            msg.receiverId == userId && (!msg.isDelivered || !msg.isRead));
             if (hasNewMessages) {
-              // تمييز الرسائل الجديدة بالتسليم والقراءة
               await _repository.markMessagesAsDelivered(chatId, userId);
               await _repository.markMessagesAsRead(chatId, userId);
             }
-            
             emit(ChatLoaded(messages: messages, chat: chat!));
           }
         },
         onError: (error) {
           if (!isClosed) {
             emit(ChatError('حدث خطأ أثناء جلب الرسائل: $error'));
-            print('Error loading messages: $error');
           }
         },
       );
-      
-      // إنشاء مؤقت لتحديث حالة الرسائل كل 5 ثوانٍ
+
       Timer.periodic(Duration(seconds: 5), (timer) async {
         if (isClosed) {
           timer.cancel();
           return;
         }
-        
         if (state is ChatLoaded) {
-          // تحديث حالة التسليم والقراءة دوريًا
           await _repository.markMessagesAsDelivered(chatId, userId);
           await _repository.markMessagesAsRead(chatId, userId);
         }
       });
-      
     } catch (e) {
       if (!isClosed) {
         emit(ChatError('حدث خطأ: $e'));
-        print('Error loading chat: $e');
       }
     }
   }
 
-  void sendMessage(String content, {String? imageUrl, String? audioUrl, String? replyTo}) async {
+  void sendMessage(String content, {
+    String? imageUrl,
+    String? audioUrl,
+    int? audioDuration,
+    String? replyTo,
+  }) async {
     try {
       if (state is ChatLoaded) {
         final currentState = state as ChatLoaded;
-        final userId = FirebaseAuth.instance.currentUser!.uid;
-        final receiverId = currentState.chat.participants.firstWhere(
-              (id) => id != userId,
-        );
+        final userId = FirebaseAuth.instance.currentUser?.uid ?? '';
+        
+        if (userId.isEmpty) {
+          emit(ChatError('لم يتم تسجيل الدخول'));
+          return;
+        }
 
+        final tempId = 'temp_${DateTime.now().millisecondsSinceEpoch}';
         final tempMessage = MessageModel(
-          messageId: 'temp_${DateTime.now().millisecondsSinceEpoch}',
+          messageId: tempId,
           senderId: userId,
-          receiverId: receiverId,
+          receiverId: currentState.chat.otherUserId,
           message: content,
           imageUrl: imageUrl,
           audioUrl: audioUrl,
+          audioDuration: audioDuration,
           isSeen: false,
           isDelivered: false,
           isRead: false,
@@ -127,6 +125,7 @@ class ChatCubit extends Cubit<ChatState> {
           content,
           imageUrl: imageUrl,
           audioUrl: audioUrl,
+          audioDuration: audioDuration,
           replyTo: replyTo,
         );
       }
@@ -136,9 +135,7 @@ class ChatCubit extends Cubit<ChatState> {
         emit(
           ChatLoaded(
             chat: currentState.chat,
-            messages: currentState.messages
-                .where((m) => !m.messageId.startsWith('temp_'))
-                .toList(),
+            messages: currentState.messages.where((m) => !m.messageId.startsWith('temp_')).toList(),
           ),
         );
         emit(ChatError('حدث خطأ أثناء إرسال الرسالة: $e'));
@@ -154,10 +151,8 @@ class ChatCubit extends Cubit<ChatState> {
 
     final currentState = state as ChatLoaded;
     final messages = currentState.messages;
-    
-    // البحث عن الرسالة المراد حذفها
     final messageToDelete = messages.firstWhere(
-      (m) => m.messageId == messageId,
+          (m) => m.messageId == messageId,
       orElse: () => MessageModel(
         messageId: '',
         senderId: '',
@@ -166,41 +161,31 @@ class ChatCubit extends Cubit<ChatState> {
         timestamp: DateTime.now(),
       ),
     );
-    
-    // إذا لم يتم العثور على الرسالة
+
     if (messageToDelete.messageId.isEmpty) {
       emit(ChatError('الرسالة غير موجودة'));
       return;
     }
-    
+
     try {
-      // تحديث الواجهة أولاً (لتجربة مستخدم أفضل)
-      final updatedMessages = messages
-          .where((m) => m.messageId != messageId)
-          .toList();
-      
+      final updatedMessages = messages.where((m) => m.messageId != messageId).toList();
       emit(ChatLoaded(
         chat: currentState.chat,
         messages: updatedMessages,
       ));
 
-      // حذف الرسالة من Firestore
       await _repository.deleteMessage(chatId, messageId);
-      
-      // التحقق مما إذا كانت الرسالة المحذوفة هي آخر رسالة في المحادثة
-      final isLastMessage = currentState.chat.lastMessageSenderId == messageToDelete.senderId && 
-                          (currentState.chat.lastMessage == messageToDelete.message ||
-                          (messageToDelete.imageUrl != null && currentState.chat.lastMessage == 'صورة') ||
-                          (messageToDelete.audioUrl != null && currentState.chat.lastMessage == 'رسالة صوتية'));
-                          
+
+      final isLastMessage = currentState.chat.lastMessageSenderId == messageToDelete.senderId &&
+          (currentState.chat.lastMessage == messageToDelete.message ||
+              (messageToDelete.imageUrl != null && currentState.chat.lastMessage == 'صورة') ||
+              (messageToDelete.audioUrl != null && currentState.chat.lastMessage == 'رسالة صوتية'));
+
       if (isLastMessage && updatedMessages.isNotEmpty) {
-        // تحديث آخر رسالة في المحادثة إلى الرسالة السابقة
         final newLastMessage = updatedMessages.first;
-        final String lastMessageText = newLastMessage.message.isNotEmpty 
-            ? newLastMessage.message 
+        final String lastMessageText = newLastMessage.message.isNotEmpty
+            ? newLastMessage.message
             : (newLastMessage.imageUrl != null ? 'صورة' : 'رسالة صوتية');
-            
-        // تحديث البيانات على واجهة المستخدم
         emit(ChatLoaded(
           chat: currentState.chat.copyWith(
             lastMessage: lastMessageText,
@@ -209,22 +194,18 @@ class ChatCubit extends Cubit<ChatState> {
           ),
           messages: updatedMessages,
         ));
-        
-        // تحديث البيانات في Firestore
         await _repository.updateLastMessage(
-          chatId, 
+          chatId,
           lastMessageText,
           newLastMessage.senderId,
-          newLastMessage.timestamp
+          newLastMessage.timestamp,
         );
       }
     } catch (e) {
-      // في حالة الخطأ، إعادة تحميل الرسائل
       if (!isClosed) {
         loadMessages();
         emit(ChatError('حدث خطأ أثناء حذف الرسالة: $e'));
       }
-      // إعادة رمي الخطأ ليتم التقاطه في واجهة المستخدم
       throw e;
     }
   }
@@ -252,31 +233,22 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
-  // Method to explicitly mark messages as read
   Future<void> markMessagesAsRead() async {
     try {
       final userId = FirebaseAuth.instance.currentUser?.uid;
       if (userId == null) {
-        print('Cannot mark messages as read: User not logged in');
         return;
       }
-      
-      // Mark messages as read in Firestore
       await _repository.markMessagesAsRead(chatId, userId);
-      
-      // If we have loaded state, update the unread count in the UI
       if (state is ChatLoaded) {
         final currentState = state as ChatLoaded;
-        // Update the UI with unread count set to 0
         emit(ChatLoaded(
           chat: currentState.chat.copyWith(unreadCount: 0),
           messages: currentState.messages,
         ));
       }
-      
-      print('Messages marked as read successfully');
     } catch (e) {
-      print('Error marking messages as read: $e');
+      // تجاهل الأخطاء
     }
   }
 

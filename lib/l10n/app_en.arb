@@ -35,6 +35,7 @@
   "delete": "حذف",
   "messageCopied": "تم نسخ الرسالة",
   "noMessages": "noMessages",
+  "recording": "recording",
   "edited": "تم التعديل",
   "editingMessage": "تعديل الرسالة",
   "errorCreatingChat": "errorCreatingChat",

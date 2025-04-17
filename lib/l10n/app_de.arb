@@ -97,6 +97,7 @@
   "messageDeleted": "Nachricht gelöscht",
   "deletingMessage": "Nachricht wird gelöscht...",
   "retry": "retry",
+  "recording": "recording",
   "noMessages": "noMessages",
   "errorCreatingChat": "errorCreatingChat",
   "arabic": "العربية",

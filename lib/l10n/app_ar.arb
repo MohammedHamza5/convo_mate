@@ -47,6 +47,7 @@
   "retry": "retry",
   "errorCreatingChat": "errorCreatingChat",
   "noMessages": "noMessages",
+  "recording": "recording",
   "editingMessage": "تعديل الرسالة",
   "replyingTo": "الرد على: {message}",
   "failedToEditMessage": "فشل تعديل الرسالة: {error}",

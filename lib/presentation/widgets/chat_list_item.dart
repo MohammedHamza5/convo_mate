@@ -30,7 +30,6 @@ class _ChatListItemState extends State<ChatListItem> {
     if (!_initialized) {
       _presenceProvider = Provider.of<PresenceProvider>(context, listen: false);
       if (widget.chat.otherUserId.isNotEmpty) {
-        print('ChatListItem: Start watching user ${widget.chat.otherUserId}');
         _presenceProvider?.startWatchingUser(widget.chat.otherUserId);
         
         // Set a short delay to allow presence data to load
@@ -42,7 +41,6 @@ class _ChatListItemState extends State<ChatListItem> {
           }
         });
       } else {
-        print('ChatListItem: Cannot watch user with empty ID');
         setState(() {
           _isLoadingPresence = false;
         });
@@ -54,7 +52,6 @@ class _ChatListItemState extends State<ChatListItem> {
   @override
   void dispose() {
     if (_initialized && _presenceProvider != null && widget.chat.otherUserId.isNotEmpty) {
-      print('ChatListItem: Stop watching user ${widget.chat.otherUserId}');
       _presenceProvider!.stopWatchingUser(widget.chat.otherUserId);
     }
     super.dispose();
@@ -117,7 +114,6 @@ class _ChatListItemState extends State<ChatListItem> {
               
               // If still no presence data after loading period
               if (presenceData == null) {
-                print('ChatListItem: No presence data for ${widget.chat.otherUserId}');
                 return Positioned(
                   right: 0,
                   bottom: 0,
@@ -138,8 +134,6 @@ class _ChatListItemState extends State<ChatListItem> {
               
               final isOnline = presenceData['isOnline'] as bool? ?? false;
               final isGhostMode = presenceData['isGhostMode'] as bool? ?? false;
-              
-              print('ChatListItem: User ${widget.chat.otherUserId} status - online: $isOnline, ghostMode: $isGhostMode');
               
               // عرض نقطة التواجد فقط إذا كان المستخدم متصل وليس في وضع التخفي
               if (isOnline && !isGhostMode) {
